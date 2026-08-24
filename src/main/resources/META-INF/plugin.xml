@@ -1,0 +1,36 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>dev.gaphunter.semverbumpmismatchcompanion</id>
+    <name>Semver Bump Mismatch Companion</name>
+    <vendor>Gap Hunter Labs</vendor>
+    <description><![CDATA[
+        <p>Flags a <code>CHANGELOG.md</code> release entry (Keep a
+        Changelog format) whose own body text reads as a breaking
+        change (contains "BREAKING") but whose version, versus the
+        release right before it, only bumped MINOR or PATCH -- SemVer
+        expects a MAJOR bump for a breaking change, and this is a real,
+        easy mistake: bumping the version by copy-pasting the previous
+        release's shape without checking whether this release's actual
+        content warrants MAJOR.</p>
+        <p><b>100% plain-text scan of your own CHANGELOG.md</b> -- no
+        external changelog/semver library, no network calls.</p>
+        <p>Stated honestly: v0.1 only looks for the literal word
+        "BREAKING" in the release body (the marker most real
+        changelogs and Conventional Commits already use) -- a breaking
+        change described without that word isn't caught. Releases
+        under major <code>0</code> are never flagged -- SemVer itself
+        treats the whole <code>0.x</code> line as "anything can break".</p>
+        <p>Free. No license nags, no telemetry, no network calls.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <localInspection language=""
+            groupName="Semver Bump Mismatch Companion"
+            displayName="CHANGELOG.md release mentions BREAKING but version bump isn't MAJOR"
+            enabledByDefault="true"
+            level="WARNING"
+            implementationClass="dev.gaphunter.semverbumpmismatchcompanion.inspection.SemverBumpMismatchInspection"/>
+    </extensions>
+</idea-plugin>
