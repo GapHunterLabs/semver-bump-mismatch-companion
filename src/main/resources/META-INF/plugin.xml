@@ -32,5 +32,6 @@
             enabledByDefault="true"
             level="WARNING"
             implementationClass="dev.gaphunter.semverbumpmismatchcompanion.inspection.SemverBumpMismatchInspection"/>
+        <notificationGroup id="Semver Bump Mismatch Companion" displayType="BALLOON"/>
     </extensions>
 </idea-plugin>
