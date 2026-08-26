@@ -9,6 +9,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import dev.gaphunter.semverbumpmismatchcompanion.detect.SemverBumpChecker
 import dev.gaphunter.semverbumpmismatchcompanion.parse.ChangelogParser
+import dev.gaphunter.semverbumpmismatchcompanion.review.ReviewPrompt
 
 /**
  * Flags a CHANGELOG.md release entry whose own body text reads as a
@@ -39,13 +40,15 @@ class SemverBumpMismatchInspection : LocalInspectionTool() {
             )
             if (relativeRange.startOffset >= relativeRange.endOffset) return@mapNotNull null
 
-            manager.createProblemDescriptor(
+            val problem = manager.createProblemDescriptor(
                 anchor,
                 relativeRange,
                 "Release ${hit.entry.version} mentions \"BREAKING\" but only bumped minor/patch versus ${hit.previousVersion} -- SemVer expects a MAJOR bump for a breaking change",
                 ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
                 isOnTheFly,
             )
+            ReviewPrompt.recordHit(file.project, "${virtualFile.path}:${hit.entry.version}")
+            problem
         }
 
         return if (problems.isEmpty()) null else problems.toTypedArray()
