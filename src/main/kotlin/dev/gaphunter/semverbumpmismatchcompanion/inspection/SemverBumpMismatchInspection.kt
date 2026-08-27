@@ -54,7 +54,7 @@ class SemverBumpMismatchInspection : LocalInspectionTool() {
         return if (problems.isEmpty()) null else problems.toTypedArray()
     }
 
-    /** Leaf-anchored, never a composite node (`SDK_GOTCHAS.md` §20). */
+    /** Leaf-anchored, never a composite node. */
     private fun leafElementAt(file: PsiFile, startOffset: Int): PsiElement? {
         if (startOffset < 0 || startOffset >= file.textLength) return null
         var element = file.findElementAt(startOffset) ?: return file
