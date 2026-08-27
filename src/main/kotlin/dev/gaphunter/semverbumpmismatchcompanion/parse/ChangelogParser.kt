@@ -7,7 +7,7 @@ import dev.gaphunter.semverbumpmismatchcompanion.model.ChangelogEntry
  * (`## [X.Y.Z] - YYYY-MM-DD` or `## [X.Y.Z]` release headers, an
  * optional `## [Unreleased]` at the top) -- no external Markdown
  * library, same "small stable line-oriented syntax" technique as
- * `DockerfileParser`/`GradleSettingsParser` (`CONSTITUTION.md` §6).
+ * `DockerfileParser`/`GradleSettingsParser`.
  *
  * `[Unreleased]` is parsed but its `version` text is exactly
  * `"Unreleased"` -- callers filter it out before any semver comparison,
