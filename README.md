@@ -1,12 +1,14 @@
 # Semver Bump Mismatch Companion
 
 Flags a `CHANGELOG.md` release entry (Keep a Changelog format) whose
-own body text reads as a breaking change (contains "BREAKING") but
-whose version, versus the release right before it, only bumped MINOR
-or PATCH — SemVer expects a MAJOR bump for a breaking change, and this
-is a real, easy mistake: bumping the version by copy-pasting the
-previous release's shape without checking whether this release's
-actual content warrants MAJOR.
+own body text reads as a breaking change — either the literal word
+"BREAKING", or a `### Removed` section (Keep a Changelog's own
+standard header for removed features, a breaking change by
+definition) — but whose version, versus the release right before it,
+only bumped MINOR or PATCH — SemVer expects a MAJOR bump for a
+breaking change, and this is a real, easy mistake: bumping the version
+by copy-pasting the previous release's shape without checking whether
+this release's actual content warrants MAJOR.
 
 ## Why it exists
 
@@ -27,9 +29,12 @@ only after someone downstream gets burned.
 
 ## v0.1 scope — stated honestly, not exhaustively
 
-Only looks for the literal word "BREAKING" in the release body (the
-marker most real changelogs and Conventional Commits already use) — a
-breaking change described without that word isn't caught.
+Looks for the literal word "BREAKING" (the marker most real changelogs
+and Conventional Commits already use) or a `### Removed` section
+header — a breaking change described without either signal (e.g. a
+prose-only "Changed" entry describing an incompatible behavior change)
+isn't caught. Deliberately excludes `### Deprecated`: a deprecation
+warns of a *future* removal without breaking anything yet.
 
 ## Usage
 

@@ -31,6 +31,35 @@ class SemverBumpCheckerTest {
     }
 
     @Test
+    fun `a release with a Removed section and only a minor bump is flagged, even with no literal BREAKING word`() {
+        val entries = listOf(
+            entry("1.3.0", "### Removed\n- The deprecated `oldMethod()`.\n"),
+            entry("1.2.0", "Added a feature."),
+        )
+        val hits = SemverBumpChecker.findMismatches(entries)
+        assertEquals(1, hits.size)
+        assertEquals("1.3.0", hits[0].entry.version)
+    }
+
+    @Test
+    fun `a Removed section with a real major bump is not flagged`() {
+        val entries = listOf(
+            entry("2.0.0", "### Removed\n- The deprecated `oldMethod()`.\n"),
+            entry("1.2.0", "Added a feature."),
+        )
+        assertTrue(SemverBumpChecker.findMismatches(entries).isEmpty())
+    }
+
+    @Test
+    fun `a Deprecated section (not Removed) is never treated as a breaking-change signal`() {
+        val entries = listOf(
+            entry("1.3.0", "### Deprecated\n- `oldMethod()` will be removed in a future release.\n"),
+            entry("1.2.0", "Added a feature."),
+        )
+        assertTrue(SemverBumpChecker.findMismatches(entries).isEmpty())
+    }
+
+    @Test
     fun `a non-breaking release with only a minor bump is not flagged`() {
         val entries = listOf(entry("1.3.0", "Added a feature."), entry("1.2.0", "Added another feature."))
         assertTrue(SemverBumpChecker.findMismatches(entries).isEmpty())

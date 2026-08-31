@@ -22,6 +22,15 @@ object SemverBumpChecker {
 
     private val BREAKING_MARKER = Regex("breaking", RegexOption.IGNORE_CASE)
 
+    // Keep a Changelog's own standard "### Removed" section header --
+    // documented there as "for now removed features". A library
+    // removing a feature/API is a breaking change by definition, same
+    // strength of signal as the literal word "BREAKING", so it's
+    // checked the same way. Deliberately NOT "### Deprecated" -- a
+    // deprecation warns of a *future* removal without breaking anything
+    // yet, so it's never treated as a breaking-change signal here.
+    private val REMOVED_SECTION = Regex("""^\s*#{1,4}\s*Removed\b""", setOf(RegexOption.MULTILINE, RegexOption.IGNORE_CASE))
+
     fun findMismatches(entries: List<ChangelogEntry>): List<MismatchHit> {
         val releases = entries.filter { it.version != "Unreleased" }
         val hits = mutableListOf<MismatchHit>()
@@ -34,7 +43,8 @@ object SemverBumpChecker {
             val olderSemVer = SemVer.parse(older.version) ?: continue
             if (newerSemVer.major == 0) continue
 
-            val isBreaking = BREAKING_MARKER.containsMatchIn(newer.bodyText)
+            val isBreaking = BREAKING_MARKER.containsMatchIn(newer.bodyText) ||
+                REMOVED_SECTION.containsMatchIn(newer.bodyText)
             val majorBumped = newerSemVer.major > olderSemVer.major
             if (isBreaking && !majorBumped) {
                 hits += MismatchHit(newer, older.version)
