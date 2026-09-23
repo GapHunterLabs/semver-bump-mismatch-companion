@@ -21,5 +21,8 @@ data class SemVer(val major: Int, val minor: Int, val patch: Int) {
     }
 }
 
+/** Which signal in the release body read as a breaking change -- carried so the reported message names the real one instead of always claiming the literal word. */
+enum class BreakingSignal { BREAKING_WORD, REMOVED_SECTION }
+
 /** One finding: a release whose own body text reads as a breaking change, but whose version bump versus the previous release didn't increment MAJOR. */
-data class MismatchHit(val entry: ChangelogEntry, val previousVersion: String)
+data class MismatchHit(val entry: ChangelogEntry, val previousVersion: String, val signal: BreakingSignal)

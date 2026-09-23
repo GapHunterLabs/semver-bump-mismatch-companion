@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.4.2] - 2026-08-25
+
+### Changed
+
+- Internal cache layer rewritten for lower memory use. This is a
+  non-breaking change; the public API is unaffected.
+
 ## [1.4.1] - 2026-08-20
 
 ### Changed

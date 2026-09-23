@@ -4,6 +4,23 @@
 
 ## [Unreleased]
 
+## [0.3.0]
+
+### Fixed
+
+- A release that explicitly says its change is NOT breaking --
+  "non-breaking", "not breaking", "no breaking changes", "without
+  breaking", "isn't/aren't breaking" -- is no longer flagged. The
+  detector previously matched the bare substring "breaking" anywhere
+  in the body, so a changelog reassuring readers that nothing broke
+  was read as if it claimed the opposite. Confirmed with 2 tests that
+  failed against the 0.2.0 detector before the fix.
+- The Marketplace description now mentions the `### Removed` section
+  signal added in 0.2.0 -- it was shipped but never added to the
+  published description.
+- "Rate on Marketplace" now links to this plugin's own reviews page
+  instead of the vendor page.
+
 ## [0.2.0]
 
 ### Added
@@ -35,7 +52,8 @@
 - 100% plain-text scan of your own CHANGELOG.md, no network calls, no
   telemetry. Free.
 
-[Unreleased]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/commits/0.1.0
