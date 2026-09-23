@@ -41,14 +41,8 @@ object ReviewPrompt {
 
     private const val NOTIFICATION_GROUP_ID = "Semver Bump Mismatch Companion"
 
-    // TODO(post-first-publish): Marketplace only assigns a numeric plugin
-    // ID on the first manual submit (queued, see demo/README.md) -- until
-    // then this points at the vendor page so "Rate on Marketplace" still
-    // goes somewhere real instead of a 404. Update to
-    // https://plugins.jetbrains.com/plugin/<id>-semver-bump-mismatch-companion/reviews once the
-    // real ID is known (recorded in the same place as the other
-    // post-publish follow-ups).
-    private const val MARKETPLACE_URL = "https://plugins.jetbrains.com/vendor/gap-hunter-labs"
+    private const val MARKETPLACE_URL =
+        "https://plugins.jetbrains.com/plugin/33793-semver-bump-mismatch-companion/reviews"
 
     /**
      * Call this from the real detection code path once per distinct

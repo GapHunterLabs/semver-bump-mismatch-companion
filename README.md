@@ -27,7 +27,7 @@ only after someone downstream gets burned.
   entire `0.x` line as "anything can break" — a minor/patch bump
   alongside a breaking change there is expected, not a mistake.
 
-## v0.1 scope — stated honestly, not exhaustively
+## v0.2 scope — stated honestly, not exhaustively
 
 Looks for the literal word "BREAKING" (the marker most real changelogs
 and Conventional Commits already use) or a `### Removed` section
@@ -35,6 +35,14 @@ header — a breaking change described without either signal (e.g. a
 prose-only "Changed" entry describing an incompatible behavior change)
 isn't caught. Deliberately excludes `### Deprecated`: a deprecation
 warns of a *future* removal without breaking anything yet.
+
+**Since 0.3.0:** a negated mention right before the word --
+"non-breaking", "not breaking", "no breaking changes", "without
+breaking", "isn't/aren't breaking" -- is not treated as a signal, so a
+changelog that reassures readers nothing broke doesn't get flagged as
+if it claimed the opposite. Known remaining gap: a negation with
+another word in between ("not *a* breaking change") isn't recognized
+as negated.
 
 ## Usage
 

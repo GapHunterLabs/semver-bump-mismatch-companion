@@ -8,16 +8,18 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import dev.gaphunter.semverbumpmismatchcompanion.detect.SemverBumpChecker
+import dev.gaphunter.semverbumpmismatchcompanion.model.BreakingSignal
 import dev.gaphunter.semverbumpmismatchcompanion.parse.ChangelogParser
 import dev.gaphunter.semverbumpmismatchcompanion.review.ReviewPrompt
 
 /**
  * Flags a CHANGELOG.md release entry whose own body text reads as a
- * breaking change (contains "BREAKING") but whose version, versus the
- * release right before it, only bumped MINOR or PATCH -- a real,
- * common mistake: bumping the version by copy-pasting the previous
- * bump's shape without checking whether this release's actual content
- * warrants a MAJOR bump under SemVer.
+ * breaking change (the word "BREAKING", not negated, or a
+ * `### Removed` section) but whose version, versus the release right
+ * before it, only bumped MINOR or PATCH -- a real, common mistake:
+ * bumping the version by copy-pasting the previous bump's shape
+ * without checking whether this release's actual content warrants a
+ * MAJOR bump under SemVer.
  */
 class SemverBumpMismatchInspection : LocalInspectionTool() {
 
@@ -40,10 +42,14 @@ class SemverBumpMismatchInspection : LocalInspectionTool() {
             )
             if (relativeRange.startOffset >= relativeRange.endOffset) return@mapNotNull null
 
+            val signalText = when (hit.signal) {
+                BreakingSignal.BREAKING_WORD -> "mentions \"BREAKING\""
+                BreakingSignal.REMOVED_SECTION -> "has a \"### Removed\" section"
+            }
             val problem = manager.createProblemDescriptor(
                 anchor,
                 relativeRange,
-                "Release ${hit.entry.version} mentions \"BREAKING\" but only bumped minor/patch versus ${hit.previousVersion} -- SemVer expects a MAJOR bump for a breaking change",
+                "Release ${hit.entry.version} $signalText but only bumped minor/patch versus ${hit.previousVersion} -- SemVer expects a MAJOR bump for a breaking change",
                 ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
                 isOnTheFly,
             )
