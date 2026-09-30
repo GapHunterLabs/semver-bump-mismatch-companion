@@ -10,6 +10,12 @@ breaking change, and this is a real, easy mistake: bumping the version
 by copy-pasting the previous release's shape without checking whether
 this release's actual content warrants MAJOR.
 
+![Semver Bump Mismatch Companion: catch a breaking change released without a MAJOR version bump](docs/media/hero.gif)
+
+Each feature on its own:
+[Breaking-change check](docs/media/01-mismatch.gif) ·
+[Bump MAJOR and it clears](docs/media/02-major-bump.gif)
+
 ## Why it exists
 
 Consumers of a library rely on SemVer to know whether upgrading is
