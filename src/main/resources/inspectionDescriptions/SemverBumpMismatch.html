@@ -1,0 +1,11 @@
+<html>
+<body>
+Reports a release in <code>CHANGELOG.md</code> (Keep a Changelog format) that describes a breaking change but only bumps
+the MINOR or PATCH version compared with the release right before it. SemVer expects a MAJOR bump for a breaking change.
+<p>A release counts as breaking when its entry contains the word <code>BREAKING</code> (not negated, so
+"non-breaking" or "no breaking changes" do not count) or a <code>### Removed</code> section.</p>
+<p>Example: <code>## [1.5.0]</code> says "BREAKING: renamed chargeCustomer()" and the previous release is
+<code>1.4.2</code>. The fix is to release it as <code>2.0.0</code>.</p>
+<p>Releases on a 0.x version are not checked: SemVer allows breaking changes before 1.0.0.</p>
+</body>
+</html>

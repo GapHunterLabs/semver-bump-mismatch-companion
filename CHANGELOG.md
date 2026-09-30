@@ -4,6 +4,20 @@
 
 ## [Unreleased]
 
+## [0.3.1]
+
+### Fixed
+
+- The warning underlines the whole release header (`## [1.5.0]`).
+  With the Markdown support every IntelliJ IDE bundles, it only
+  underlined the `##` marker, which was easy to miss and hard to hover.
+- Each mismatch is reported once. In the IDE a `CHANGELOG.md` is read
+  through more than one syntax tree, and the same warning appeared
+  twice (the problem count read 2 for a single release).
+- The inspection has a description page (Settings | Editor |
+  Inspections, and the expanded warning) instead of "Under
+  construction".
+
 ## [0.3.0]
 
 ### Fixed
@@ -52,7 +66,8 @@
 - 100% plain-text scan of your own CHANGELOG.md, no network calls, no
   telemetry. Free.
 
-[Unreleased]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.3.1...HEAD
+[0.3.1]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/GapHunterLabs/semver-bump-mismatch-companion/compare/0.1.0...0.1.1
